@@ -12,6 +12,7 @@ stages:
       #set reqiured on azure
       - script: 'terraform apply'
         displayName: ser azure resourdes
+        workingDirectory:  ./terraform
 
     # Needed for Terraform VM deployment
     # - task: InstallSSHKey@0
