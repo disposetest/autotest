@@ -9,9 +9,17 @@ stages:
       pool:
         name: Hosted Ubuntu 1604
       steps:
-      #set reqiured on azure
+      #set resources on azure
+      - script: 'terraform init'
+        displayName: initialise azure resourdes
+        workingDirectory:  ./terraform
+
+      - script: 'terraform plan'
+        displayName: prepare to set the azure resourdes
+        workingDirectory:  ./terraform
+
       - script: 'terraform apply'
-        displayName: ser azure resourdes
+        displayName: set the azure resourdes
         workingDirectory:  ./terraform
 
     # Needed for Terraform VM deployment
