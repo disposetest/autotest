@@ -1,13 +1,22 @@
-name: Azure Pipelines
+name: Automated tests
 variables:
   python.version: '3.7.6'
 stages:
-- stage: Build
+  
+
+-stage: Build
   jobs:
   - job: Build
     pool:
       name: Hosted Ubuntu 1604
     steps:
+    #set resiurces on azure
+    - task: cmdline1
+      displayName: Set Azure resources
+      inputs:
+        sript:  'terraform apply'
+        workingDirectory: ./terraform 
+
     # Needed for Terraform VM deployment
     # - task: InstallSSHKey@0
     #   inputs:
