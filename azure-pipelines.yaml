@@ -3,19 +3,18 @@ variables:
   python.version: '3.7.6'
 stages:
   
-
--stage: Build
-  jobs:
-  - job: Build
-    pool:
-      name: Hosted Ubuntu 1604
-    steps:
-    #set resiurces on azure
-    - task: cmdline1
-      displayName: Set Azure resources
-      inputs:
-        sript:  'terraform apply'
-        workingDirectory: ./terraform 
+  - stage: Build
+    jobs:
+    - job: Build
+        pool:
+          name: Hosted Ubuntu 1604
+        steps:
+        #set reqiured on azure
+        - task: cmdline1
+          displayName: Set Azure resources
+        inputs:
+          sript:  'terraform apply'
+          workingDirectory: ./terraform 
 
     # Needed for Terraform VM deployment
     # - task: InstallSSHKey@0
@@ -31,7 +30,7 @@ stages:
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
-      displayName: 'Upload Package'
+        displayName: 'Upload Package'
       artifact: drop-fakerestapi
 - stage:
   jobs:
