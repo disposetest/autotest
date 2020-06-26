@@ -10,11 +10,8 @@ stages:
         name: Hosted Ubuntu 1604
       steps:
       #set reqiured on azure
-      - task: cmdline@1
-        displayName: Set Azure resources
-        inputs:
-          sript:  'terraform apply'
-          workingDirectory: ./terraform 
+      - script: 'terraform apply'
+        displayName: ser azure resourdes
 
     # Needed for Terraform VM deployment
     # - task: InstallSSHKey@0
