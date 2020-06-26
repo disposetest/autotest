@@ -6,12 +6,12 @@ stages:
   - stage: Build
     jobs:
     - job: Build
-        pool:
+      pool:
         name: Hosted Ubuntu 1604
-        steps:
-        #set reqiured on azure
-        - task: cmdline1
-          displayName: Set Azure resources
+      steps:
+      #set reqiured on azure
+      - task: cmdline1
+        displayName: Set Azure resources
         inputs:
           sript:  'terraform apply'
           workingDirectory: ./terraform 
