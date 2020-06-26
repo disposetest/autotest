@@ -7,7 +7,7 @@ stages:
     jobs:
     - job: Build
         pool:
-          name: Hosted Ubuntu 1604
+        name: Hosted Ubuntu 1604
         steps:
         #set reqiured on azure
         - task: cmdline1
