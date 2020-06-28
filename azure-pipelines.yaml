@@ -21,7 +21,7 @@ stages:
           SecretsFilter: '*'
           RunAsPreJob: true
       #login to azure account
-      - script: 'az login -u $(email) -p $(password)'
+      - script: 'echo $(email)'
         displayName: login to azure
         workingDirectory:  ./terraform
       #set resources on azure
