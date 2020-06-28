@@ -9,17 +9,21 @@ stages:
       pool:
         name: Hosted Ubuntu 1604
       steps:
+      #install azure cli
+      - script: 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
+        displayName: Install azure cli
+        workingDirectory:  ./terraform
       #set resources on azure
       - script: 'terraform init'
-        displayName: initialise azure resourdes
+        displayName: initialise azure resources
         workingDirectory:  ./terraform
 
       - script: 'terraform plan'
-        displayName: prepare to set the azure resourdes
+        displayName: prepare azure resources
         workingDirectory:  ./terraform
-
+      #create azure resources
       - script: 'terraform apply'
-        displayName: set the azure resourdes
+        displayName: create azure resources
         workingDirectory:  ./terraform
 
     # Needed for Terraform VM deployment
