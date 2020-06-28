@@ -13,11 +13,13 @@ stages:
       - script: 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
         displayName: Install azure cli
         workingDirectory:  ./terraform
+      #login to azure account
+      - script: 'az login'
       #set resources on azure
       - script: 'terraform init'
         displayName: initialise azure resources
         workingDirectory:  ./terraform
-
+      #prepare to resources for build
       - script: 'terraform plan'
         displayName: prepare azure resources
         workingDirectory:  ./terraform
