@@ -13,8 +13,15 @@ stages:
       - script: 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
         displayName: Install azure cli
         workingDirectory:  ./terraform
+        # Download Azure Key Vault secrets
+      - task: AzureKeyVault@1
+        inputs:
+          azureSubscription: 'Free Trial(520b1771-2700-4340-89c6-560a52f65ee9)'
+          KeyVaultName: 'nanoVault25967'
+          SecretsFilter: '*'
+          RunAsPreJob: true
       #login to azure account
-      - script: 'az login'
+      - script: 'az login -u $(email) -p $(password)'
         displayName: login to azure
         workingDirectory:  ./terraform
       #set resources on azure
