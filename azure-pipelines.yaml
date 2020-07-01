@@ -1,97 +1,177 @@
 name: Automated tests
 variables:
   python.version: '3.7.6'
+  PUBLIC_KEY: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD2DdxPjYlEW96uIweui4EyRDLh6zP52Mu5eLAuWyQlxgzph2Zw9Im/TpVfemw1NZGLQYL5rd+kMALPM7DglLjW/XINJ/GG+XP778SgnDXBtm9FCQP/GIgRuMYTPSEvtHt16WwL1TWIHbcBO17frd5aZ300GUCSviLw4q7i6EhHMcuNlAMTuTfNrwxW48TuH2C+11qItDJZdzHyBhu9ncFweRa7af2NqFLTVNuIQtTRz/7hnuTGXf96o61TYDJY/YSqCWT7oEYCAkjvXfLgJ9Egdy19m3RBs0OGLYk3loRn7WBfUoyN/Uuq8NIwvg+cbouRrnWXBLf0DykfZqMs3IOAnd0NFyftbVxiQtO4lVXTYuIJtKpDL+mHVnPvIjKykXQxPGTYAbsKqU96aLW0AUTWvtfnwstKtOkmuw3QNK/i0HSuAoup/gEgFmxsm24BUcyYRPQxemNmxlQbm9iUQUIX8fLdaBI+AGTeBUyuRepyhOR/l8ssFU2rexFAfTvKXiFzbu/dZ0dBBLFKPSH7nsSgHQsovx/gWxqfzVllFyS945cWKNWa0wjmLFO0zQx5mOly82KXKJXIxo6VSbTsc7sKbSbYwApETCNT0edi8kgSVjj4p5H1uiUn6EcBBVMX6ELadIh4y3AgZ6bYm/jNtdnV4pJ00PrxGJ21x5uokziC7w== cjordan@cjordan-Aspire-VX5-591G'
+
 stages:
+- stage: Build
+  jobs:
+  - job: Build
+    pool:
+      name: Hosted Ubuntu 1604
+    steps:
+    # Need for Terraform VM deployment
+     - task: InstallSSHKey@0
+       inputs:
+        knownHostsEntry: "|1|kDiGA8buzlK4URf35u6Q+FPUzAM=|Lxn1Rask05gz2aY0scRlT10JKs4= ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Hr1oTWqNqOlzGJOfGJ4NakVyIzf1rXYd4d7wo6jBlkLvCA4odBlL0mDUyZ0/QUfTTqeu+tm22gOsv+VrVTMk6vwRU75gY/y9ut5Mb3bR5BV58dKXyq9A9UeB5Cakehn5Zgm6x1mKoVyf+FFn26iYqXJRgzIZZcZ5V6hrE0Qg39kZm4az48o0AUbf6Sp4SLdvnuMa2sVNwHBboS7EJkm57XQPVU3/QpyNLHbWDdzwtrlS+ez30S3AdYhLKEOxAG8weOnyrtLJAUen9mTkol8oII1edf7mWWbWVf0nBmly21+nZcmCTISQBtdcyPaEno7fFQMDD26/s0lfKob4Kw8H"
+        sshPublicKey: $(PUBLIC_KEY)
+        sshKeySecureFile: id_rsa.pub
 
-  - stage: Build
-    jobs:
-    - job: Build
-      pool:
-        name: Hosted Ubuntu 1604
-      steps:
-      #install azure cli
-      - script: 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
-        displayName: Install azure cli
-        workingDirectory:  ./terraform
-        # Download Azure Key Vault secrets
-      #- task: AzureKeyVault@1
-       # inputs:
-        #  azureSubscription: 'Free Trial(520b1771-2700-4340-89c6-560a52f65ee9)'
-         # KeyVaultName: 'nanoVault25967'
-          #SecretsFilter: '*'
-          #RunAsPreJob: true
-      #login to azure account
-      #- script: 'az login -u $(email) -p $(password)'
-      - script: 'az login'
-        displayName: login to azure
-        workingDirectory:  ./terraform
-      #set resources on azure
-      - script: 'terraform init'
-        displayName: initialise azure resources
-        workingDirectory:  ./terraform
-      #prepare to resources for build
-      - script: 'terraform plan'
-        displayName: prepare azure resources
-        workingDirectory:  ./terraform
-      #create azure resources
-      - script: 'terraform apply'
-        displayName: create azure resources
-        workingDirectory:  ./terraform
 
-    # Needed for Terraform VM deployment
-    # - task: InstallSSHKey@0
-    #   inputs:
-    #     knownHostsEntry: 'KNOWN_HOSTS_STRING'
-    #     sshPublicKey: 'PUBLIC_KEY'
-    #     sshKeySecureFile: 'id_rsa'
-      - task: ArchiveFiles@2
-        displayName: 'Archive FakeRestAPI'
-        inputs:
-          rootFolderOrFile: 'path/to/fakerestapi'
-          includeRootFolder: false
-          archiveType: 'zip'
-          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-      - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
-        displayName: 'Upload Package'
-        artifact: drop-fakerestapi
-  - stage:
-    jobs:
-    - deployment: FakeRestAPI
+       #login to azure account
+ #    - script: 'az login --service-principal -u 26b6e71c-5dea-4977-969f-a9837ef76432 -p yg6Z1WGQ08Uqvk8-_Qa1gMXxWTlv-LxZKX --tenant 2cfcb216-ce47-4699-a281-2f1ee48e20f7'
+  #     displayName: login to azure
+   #    workingDirectory:  ./terraform
+    #  #set resources on azure
+     #- script: 'terraform init'
+#       displayName: Initialise Azure Resources
+ #      workingDirectory:  ./terraform
+  #    #create azure resources
+   #  - script: 'terraform apply -auto-approve -lock=false'
+    #   displayName: Create Azure Resources
+     #  workingDirectory:  ./terraform
+
+    
+     - task: ArchiveFiles@2
+       displayName: Archive FakeRestAPI
+       inputs:
+        rootFolderOrFile: './automatedtesting/jmeter'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
+       displayName: 'Upload FakeRestApi Package'
+       artifact: drop-fakerestapi
+
+      
+     - task: 'PublishPipelineArtifact@1'
+       inputs:
+         targetPath: '$(System.DefaultWorkingDirectory)/automatedtesting'
+         artifact: 'tests'
+         publishLocation: 'pipeline'
+       displayName: 'Upload Testing Folder'
+
+     #install newman
+     - script: |
+          sudo npm install -g newman
+          sudo npm install -g newman-reporter-junitfull
+          echo 'The bun dir is: $(Build.BinariesDirectory)'
+          ls
+       displayName: 'Install Newman Runner'
+       workingDirectory: $(System.DefaultWorkingDirectory)
+     #run test suit for postman
+     - script: |
+          newman run regression.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export report-DataR.xml
+          ls
+       displayName: 'Run postman test suit'
+       continueOnError: true
+       workingDirectory: ./automatedtesting/postman/
+
+     - script: 'newman run validation.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export report-DataV.xml'
+       displayName: 'Run postman test suit'
+       continueOnError: true
+       workingDirectory: ./automatedtesting/postman/
+
+     - task: PublishTestResults@2
+       displayName: 'Publish Test Results'
+       inputs:
+           testResultsFormat: 'JUnit'
+           testResultsFiles: '**/report-*.xml'
+           searchFolder: 'automatedtesting/postman'
+           mergeTestResults: true
+           testRunTitle: 'Test Results Export'
+           buildPlatform: 'postman'
+
+- stage:
+  displayName: Deployments
+  jobs:
+   - deployment: FakeRestAPI
+     pool:
+      vmImage: 'Ubuntu-16.04'
+     environment:
+       name:  'linuxVMEnv'
+       resourceType: VirtualMachine
+       tags: web
+     strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: 'Free Trial(520b1771-2700-4340-89c6-560a52f65ee9)'
+              appName: 'nanolinuxvmproject00-appservice'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+
+          - task: 'DownloadPipelineArtifact@2'
+            displayName: 'Download test folder'
+            inputs:
+              artifact: 'tests'
+              path: $(System.DefaultWorkingDirectory)/automatedtesting
+              
+   - deployment: VMDeploy
+     displayName: Deploy the Virtual machine
+     environment:
+      name:  'linuxVMEnv'
+      resourceType: VirtualMachine
+      tags: web
+     strategy:
+       runOnce:
+         deploy:
+           steps:
+           - task: Bash@3
+             inputs:
+               targetType: 'inline'
+               script: |
+                 #! /bin/bash 
+                 sudo apt-get update
+                 sudo apt-get upgrade -y
+                 sudo apt-get install python3-pip -y
+                 sudo apt-get install unzip -y
+                 sudo apt-get install -y chromium-browser
+                 pip3 install --upgrade pip
+                 pip3 install -U selenium
+                 chmod +777 $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver
+                 export PATH=$PATH:'$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+                 cd  /opt
+                 ls
+
+          #Run Selenium test
+           - script: |
+                sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver -f /user/bin
+                python3 login.py | tee -a logs.txt
+                ls
+             displayName: 'Run selenium test suit'
+             continueOnError: true
+
+
+                 
+- stage: PerformanceTestStage
+  displayName: Performance Test
+  jobs:
+    - job: 
       pool:
         vmImage: 'Ubuntu-16.04'
-      environment: 'TEST'
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - task: AzureWebApp@1
-              displayName: 'Deploy Azure Web App'
-              inputs:
-                azureSubscription: ''
-                appName: ''
-                appType: webApp
-                package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-  # - deployment: VMDeploy
-  #   displayName: NAME
-  #   environment:
-  #     name:  ENVIRONMENT NAME
-  #     resourceType: VirtualMachine
-  #     tags: TAG NAME
-  #   strategy:
-  #     runOnce:
-  #       deploy:
-  #         steps:
-  #         - task: Bash@3
-  #           inputs:
-  #             targetType: 'inline'
-  #             script: |
-  #               #! /bin/bash
-                
-  #               sudo apt-get upgrade -y
-  #               sudo apt-get install python3-pip -y
-  #               sudo apt-get install unzip -y
-  #               sudo apt-get install -y chromium-browser
-  #               pip3 install selenium
-  #               export PATH=$PATH:some/path
+      steps: 
+        - script: |
+            sudo apt-get install unzip -y
+            wget https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.3.zip
+            unzip apache-jmeter-5.3.zip
+            cd apache-jmeter-5.3/bin
+            sudo cp -f jmeter /user/bin
+            ls
+          displayName:  Jmeter Installation
+
+        - script: |
+            jmeter -n -t Endurance_Test.jmx -l results.csv -e -f -o ./report/endur
+            jmeter -n -t StressTest -l results.csv -e -f -o ./report/stress
+          displayName: Endurance Test
+          workingDirectory: $(System.DefaultWorkingDirectory)/automatedtesting/jmeter
 
 
+          
+
+           
+
+           
