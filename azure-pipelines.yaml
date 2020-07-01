@@ -132,7 +132,7 @@ stages:
                  pip3 install -U selenium
                  chmod +777 $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver
                  export PATH=$PATH:'$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-                 sudo cp -f $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver Build.BinariesDirectory
+                 sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver Build.BinariesDirectory
            - task: 'DownloadPipelineArtifact@2'
              displayName: 'Download test folder'
              inputs:
@@ -161,14 +161,13 @@ stages:
             wget https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.3.zip
             unzip apache-jmeter-5.3.zip
             cd apache-jmeter-5.3/bin
-            sudo ln -r -s -f jmeter /usr/bin
-            ls
+            sudo ln -r -s jmeter /usr/bin
           displayName:  Jmeter Installation
 
         - script: |
-            jmeter -n -t Endurance_Test.jmx -l results.csv -e -f -o $(System.DefaultWorkingDirectory)/automatedtesting/jmeter/report/endur
-            jmeter -n -t Stress_Test.jmx -l results.csv -e -f -o $(System.DefaultWorkingDirectory)/automatedtesting/jmeter/report/stress
-          displayName: Endurance Test
+            jmeter -n -t Endurance_Test.jmx -l results.csv -e -o $(System.DefaultWorkingDirectory)/automatedtesting/jmeter/report/endur
+            jmeter -n -t Stress_Test.jmx -l results.csv -e -o $(System.DefaultWorkingDirectory)/automatedtesting/jmeter/report/stress
+          displayName: Perfomance Tests
           workingDirectory: $(System.DefaultWorkingDirectory)/automatedtesting/jmeter
 
 
