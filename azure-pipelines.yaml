@@ -64,7 +64,7 @@ stages:
           newman run regression.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export report-DataR.xml
           ls
        displayName: 'Run postman regrstion test'
-       continueOnError: true
+       continueOnError: false
        workingDirectory: ./automatedtesting/postman/
 
      - script: 'newman run validation.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export report-DataV.xml'
