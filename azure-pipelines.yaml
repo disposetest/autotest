@@ -62,7 +62,7 @@ stages:
 
      #run test suit for postman
      - script: |
-          newman run regression.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export report-DataR.xml
+          newman run regression.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export Report-dataR.xml
           ls
        displayName: 'Run postman regrstion test'
        continueOnError: true
@@ -72,11 +72,12 @@ stages:
        displayName: 'Publish Test Results'
        inputs:
            testResultsFormat: 'JUnit'
-           testResultsFiles: '/report-*.xml'
-           searchFolder: 'automatedtesting/postman'
+           testResultsFiles: 'Report-*.xml'
+           searchFolder: '$(System.DefaultWorkingDirectory)automatedtesting/postman'
            mergeTestResults: true
            testRunTitle: 'Test Results Export'
            buildPlatform: 'postman'
+       
     
      - script: 'newman run validation.postman_collection.json -e TestSuitEnv.postman_environment.json' 
        displayName: 'Run postman integrated test'
