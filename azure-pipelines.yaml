@@ -132,6 +132,8 @@ stages:
                  pip3 install --upgrade pip
                  pip3 install -U selenium
                  chmod +777 $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver
+                 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+                 sudo dpkg --install --assume-yes --fix-boken
                  export PATH=$PATH:'$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
                  sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver Build.BinariesDirectory
            - task: 'DownloadPipelineArtifact@2'
