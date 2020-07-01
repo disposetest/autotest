@@ -86,12 +86,11 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"Successful response\", function () {",
+							"pm.test(\"Body matches string\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"{{name}}\");",
 							"});",
-							"",
 							"pm.test(\"Response time is less than 200ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);",
 							"});",
 							""
 						],
@@ -103,7 +102,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/employees",
+					"raw": "http://dummy.restapiexample.com/api/v1/employee/1",
 					"protocol": "http",
 					"host": [
 						"dummy",
@@ -113,7 +112,8 @@
 					"path": [
 						"api",
 						"v1",
-						"employees"
+						"employee",
+						"1"
 					]
 				}
 			},
