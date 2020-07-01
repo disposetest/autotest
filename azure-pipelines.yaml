@@ -106,12 +106,7 @@ stages:
               appName: 'nanolinuxvmproject00-appservice'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-
-          - task: 'DownloadPipelineArtifact@2'
-            displayName: 'Download test folder'
-            inputs:
-              artifact: 'tests'
-              path: $(System.DefaultWorkingDirectory)/automatedtesting
+          
               
    - deployment: VMDeploy
      displayName: Deploy the Virtual machine
@@ -138,12 +133,16 @@ stages:
                  chmod +777 $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver
                  export PATH=$PATH:'$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
                  cp -f $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver Build.BinariesDirectory
-                
+           - task: 'DownloadPipelineArtifact@2'
+             displayName: 'Download test folder'
+             inputs:
+              artifact: 'tests'
+              path: $(System.DefaultWorkingDirectory)/automatedtesting      
 
           #Run Selenium test
            - script: |
                 sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver -f /usr/bin
-                python3 login.py | tee -a logs.txt
+                python3 login.py | tee -a $(System.DefaultWorkingDirectory)/automatedtesting/selenium/logs.txt
                 ls
              displayName: 'Run selenium test suit'
              continueOnError: true
@@ -162,13 +161,13 @@ stages:
             wget https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.3.zip
             unzip apache-jmeter-5.3.zip
             cd apache-jmeter-5.3/bin
-            sudo ln -r -s -f  jmeter /usr/bin
+            sudo ln -r -s -f jmeter /usr/bin
             ls
           displayName:  Jmeter Installation
 
         - script: |
-            jmeter -n -t Endurance_Test.jmx -l results.csv -e -f -o ./report/endur
-            jmeter -n -t StressTest -l results.csv -e -f -o ./report/stress
+            jmeter -n -t Endurance_Test.jmx -l results.csv -e -f -o /report/endur
+            jmeter -n -t Stress_Test.jmx -l results.csv -e -f -o /report/stress
           displayName: Endurance Test
           workingDirectory: $(System.DefaultWorkingDirectory)/automatedtesting/jmeter
 
