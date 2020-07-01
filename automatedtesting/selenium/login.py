@@ -1,17 +1,17 @@
 # #!/usr/bin/env python
 from selenium import webdriver
-#from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.common.exceptions import NoSuchElementException
 
-user = "performance_glitch_user"
+user = "standard_user"
 password = "secret_sauce"
 # Start the Browser
 
 print ('Starting the browser...')
 
-#options = ChromeOptions()
-#options.add_argument("--headless") 
-#driver = webdriver.Chrome(options=options)
+options = ChromeOptions()
+options.add_argument("--headless") 
+driver = webdriver.Chrome(options=options)
 driver = webdriver.Chrome()
 print ('Browser started successfully. Navigating to the demo page to login.')
 
