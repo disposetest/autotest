@@ -59,11 +59,12 @@ stages:
           ls
        displayName: 'Install Newman Runner'
        workingDirectory: $(System.DefaultWorkingDirectory)
-     
 
+     #run test suit for postman
      - script: |
-          newman run validation.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export report-DataV.xml
-       displayName: 'Run postman integrated test'
+          newman run regression.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export report-DataR.xml
+          ls
+       displayName: 'Run postman regrstion test'
        continueOnError: false
        workingDirectory: ./automatedtesting/postman/
 
@@ -76,6 +77,13 @@ stages:
            mergeTestResults: true
            testRunTitle: 'Test Results Export'
            buildPlatform: 'postman'
+    
+     - script: 'newman run validation.postman_collection.json' 
+       displayName: 'Run postman integrated test'
+       continueOnError: false
+       workingDirectory: ./automatedtesting/postman/
+
+
 
 - stage:
   displayName: Deployments
