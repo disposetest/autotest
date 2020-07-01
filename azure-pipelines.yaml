@@ -51,7 +51,7 @@ stages:
          publishLocation: 'pipeline'
        displayName: 'Upload Testing Folder'
 
-     #install newman
+     #install newman runer
      - script: |
           sudo npm install -g newman
           sudo npm install -g newman-reporter-junitfull
@@ -60,7 +60,7 @@ stages:
        displayName: 'Install Newman Runner'
        workingDirectory: $(System.DefaultWorkingDirectory)
 
-     #run test suit for postman
+     #run test suits for postman
      - script: 'newman run regression.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export Report-dataR.xml'
        displayName: 'Run postman regression test'
        continueOnError: true
