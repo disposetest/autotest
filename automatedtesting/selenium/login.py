@@ -1,7 +1,6 @@
 # #!/usr/bin/env python
 from selenium import webdriver
 #from selenium.webdriver.chrome.options import Options as ChromeOptions
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import NoSuchElementException
 
 user = "performance_glitch_user"
@@ -36,7 +35,6 @@ def login (user, password):
     exit()
 
     page = driver.find_element_by_css_selector("div[class='product_label']").text
-    assert "Products" in page
     if page == "Products":
         print ("we are logged in")
     else:
@@ -55,7 +53,7 @@ def addCart():
 
 
 def removeCart():
-    count = 0
+   
     print('Removing items from cart')
     items = driver.find_elements_by_xpath("//button[@class='btn_secondary btn_inventory']")
     for item in items:
