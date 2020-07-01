@@ -116,6 +116,12 @@ stages:
        runOnce:
          deploy:
            steps:
+           - task: 'DownloadPipelineArtifact@2'
+             displayName: 'Download test folder'
+             inputs:
+              artifact: 'tests'
+              path: $(System.DefaultWorkingDirectory)/automatedtesting
+              
            - task: Bash@3
              inputs:
                targetType: 'inline'
@@ -136,13 +142,7 @@ stages:
                  sudo apt-get install -y -f
                  sudo apt-get autoremove -y
                  export PATH=$PATH:'$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-                 sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver Build.BinariesDirectory
-
-           - task: 'DownloadPipelineArtifact@2'
-             displayName: 'Download test folder'
-             inputs:
-              artifact: 'tests'
-              path: $(System.DefaultWorkingDirectory)/automatedtesting      
+                 sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver Build.BinariesDirectory    
 
           #Run Selenium test
            - script: |
