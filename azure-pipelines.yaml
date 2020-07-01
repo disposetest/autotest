@@ -135,9 +135,9 @@ stages:
                  sudo apt-get update -y --fix-missing
                  sudo apt-get install -y -f
                  sudo apt-get autoremove -y
-                 
                  export PATH=$PATH:'$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
                  sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver Build.BinariesDirectory
+
            - task: 'DownloadPipelineArtifact@2'
              displayName: 'Download test folder'
              inputs:
@@ -149,9 +149,7 @@ stages:
                 sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver -f /usr/bin
                 python3 $(System.DefaultWorkingDirectory)/automatedtesting/selenium/login.py | tee -a $(System.DefaultWorkingDirectory)/automatedtesting/selenium/logs.txt
              displayName: 'Run selenium test suit'
-             continueOnError: true
-
-
+             continueOnError: false
                  
 - stage: PerformanceTestStage
   displayName: Performance Test
