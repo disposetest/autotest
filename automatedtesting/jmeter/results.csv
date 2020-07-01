@@ -1,0 +1,5 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1593495017803,2692,GET All Activities,404,Not Found,Endurance Test 1-1,text,false,,426,194,2,4,https://nanolinuxvmproject00-appservice.azurewebsites.net/api/Activities,2692,0,2284
+1593495018304,2191,Get all activities,404,Not Found,Stress Test 2-2,text,false,,426,168,2,4,https://nanolinuxvmproject00-appservice.azurewebsites.net/api/Activities,2191,0,1781
+1593495018305,2190,GET All Activities,404,Not Found,Endurance Test 1-2,text,false,,426,194,2,4,https://nanolinuxvmproject00-appservice.azurewebsites.net/api/Activities,2190,0,1780
+1593495017803,2693,Get all activities,404,Not Found,Stress Test 2-1,text,false,,426,168,2,4,https://nanolinuxvmproject00-appservice.azurewebsites.net/api/Activities,2692,0,2291
