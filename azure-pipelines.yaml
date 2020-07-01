@@ -72,7 +72,7 @@ stages:
        displayName: 'Publish Test Results'
        inputs:
            testResultsFormat: 'JUnit'
-           testResultsFiles: '**/report-*.xml'
+           testResultsFiles: '/report-*.xml'
            searchFolder: 'automatedtesting/postman'
            mergeTestResults: true
            testRunTitle: 'Test Results Export'
