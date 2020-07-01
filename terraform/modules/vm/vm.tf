@@ -25,8 +25,8 @@ resource "random_id" "randomId" {
 }
 
 #An account to store the system diagnose
-resource "azurerm_storage_account" "SA" {
-    name                        = "diagnose${random_id.randomId.hex}"
+resource "azurerm_storage_account" "diag" {
+    name                        = "diag${random_id.randomId.hex}"
     resource_group_name         = var.resource_group
     location                    = var.location
     account_replication_type    = "LRS"
@@ -38,7 +38,7 @@ resource "azurerm_storage_account" "SA" {
 }
 
 
-resource "azurerm_linux_virtual_machine" "lvm" {
+resource "azurerm_linux_virtual_machine" "LVM" {
   name                = "${var.application_type}-${var.resource_type}-lvm"
   location            = var.location
   resource_group_name = var.resource_group
@@ -55,7 +55,7 @@ resource "azurerm_linux_virtual_machine" "lvm" {
     storage_account_type = "Standard_LRS"
   }
   boot_diagnostics {
-        storage_account_uri = azurerm_storage_account.SA.primary_blob_endpoint
+        storage_account_uri = azurerm_storage_account.diag.primary_blob_endpoint
     }
   source_image_reference {
     publisher = "Canonical"
