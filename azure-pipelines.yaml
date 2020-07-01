@@ -73,7 +73,7 @@ stages:
        inputs:
            testResultsFormat: 'JUnit'
            testResultsFiles: 'Report-*.xml'
-           searchFolder: '$(System.DefaultWorkingDirectory)automatedtesting/postman'
+           searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
            mergeTestResults: true
            testRunTitle: 'Test Results Export'
            buildPlatform: 'postman'
@@ -133,7 +133,8 @@ stages:
                  pip3 install -U selenium
                  chmod +777 $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver
                  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-                 sudo dpkg --install --assume-yes --fix-boken
+                 sudo dpkg --install google-chrome-stable_current_amd64.deb --assume-yes --fix-boken
+                 sudo apt install -y --fix-broken
                  export PATH=$PATH:'$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
                  sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver Build.BinariesDirectory
            - task: 'DownloadPipelineArtifact@2'
