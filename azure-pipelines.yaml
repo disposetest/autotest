@@ -13,7 +13,7 @@ stages:
     # Need for Terraform VM deployment
      - task: InstallSSHKey@0
        inputs:
-        knownHostsEntry: "|1|kDiGA8buzlK4URf35u6Q+FPUzAM=|Lxn1Rask05gz2aY0scRlT10JKs4= ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Hr1oTWqNqOlzGJOfGJ4NakVyIzf1rXYd4d7wo6jBlkLvCA4odBlL0mDUyZ0/QUfTTqeu+tm22gOsv+VrVTMk6vwRU75gY/y9ut5Mb3bR5BV58dKXyq9A9UeB5Cakehn5Zgm6x1mKoVyf+FFn26iYqXJRgzIZZcZ5V6hrE0Qg39kZm4az48o0AUbf6Sp4SLdvnuMa2sVNwHBboS7EJkm57XQPVU3/QpyNLHbWDdzwtrlS+ez30S3AdYhLKEOxAG8weOnyrtLJAUen9mTkol8oII1edf7mWWbWVf0nBmly21+nZcmCTISQBtdcyPaEno7fFQMDD26/s0lfKob4Kw8H"
+        knownHostsEntry: "|1|ygTyu2u0HX8v129KIPlJo9AwenY=|haFgF662qkXP0kc4DQoPS3teU5Y= ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=="
         sshPublicKey: $(PUBLIC_KEY)
         sshKeySecureFile: id_rsa.pub
 
@@ -63,12 +63,12 @@ stages:
      - script: |
           newman run regression.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export report-DataR.xml
           ls
-       displayName: 'Run postman test suit'
+       displayName: 'Run postman regrstion test'
        continueOnError: true
        workingDirectory: ./automatedtesting/postman/
 
      - script: 'newman run validation.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export report-DataV.xml'
-       displayName: 'Run postman test suit'
+       displayName: 'Run postman integrated test'
        continueOnError: true
        workingDirectory: ./automatedtesting/postman/
 
