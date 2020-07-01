@@ -132,7 +132,7 @@ stages:
                  pip3 install -U selenium
                  chmod +777 $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver
                  export PATH=$PATH:'$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-                 cp -f $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver Build.BinariesDirectory
+                 sudo cp -f $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver Build.BinariesDirectory
            - task: 'DownloadPipelineArtifact@2'
              displayName: 'Download test folder'
              inputs:
@@ -142,7 +142,7 @@ stages:
           #Run Selenium test
            - script: |
                 sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver -f /usr/bin
-                python3 login.py | tee -a $(System.DefaultWorkingDirectory)/automatedtesting/selenium/logs.txt
+                python3 $(System.DefaultWorkingDirectory)/automatedtesting/selenium/login.py | tee -a $(System.DefaultWorkingDirectory)/automatedtesting/selenium/logs.txt
                 ls
              displayName: 'Run selenium test suit'
              continueOnError: true
@@ -166,8 +166,8 @@ stages:
           displayName:  Jmeter Installation
 
         - script: |
-            jmeter -n -t Endurance_Test.jmx -l results.csv -e -f -o /report/endur
-            jmeter -n -t Stress_Test.jmx -l results.csv -e -f -o /report/stress
+            jmeter -n -t Endurance_Test.jmx -l results.csv -e -f -o $(System.DefaultWorkingDirectory)/automatedtesting/jmeter/report/endur
+            jmeter -n -t Stress_Test.jmx -l results.csv -e -f -o $(System.DefaultWorkingDirectory)/automatedtesting/jmeter/report/stress
           displayName: Endurance Test
           workingDirectory: $(System.DefaultWorkingDirectory)/automatedtesting/jmeter
 
