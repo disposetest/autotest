@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a3c37ad6-9019-48dd-b4a8-16ca97e0b681",
+		"_postman_id": "ba65867f-dda3-43ac-abc1-80da8d734f5a",
 		"name": "validation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "34d9fc15-851a-48ec-83c1-fcf05ffd31f0",
+						"id": "6a99701a-8671-4f3d-8a8b-b2d40aa1cfb1",
 						"exec": [
 							"pm.test(\"Successful response\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"success\");",
@@ -79,22 +79,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4293ef7d-2cb1-46ad-a408-c6b38f232eb8",
+						"id": "e4ebc3b6-b73b-4178-aa3c-80b1abd80825",
 						"exec": [
-							"",
-							"pm.test(\"Body matches string\", function () {",
+							"pm.test(\"Successful response\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"{{name}}\");",
-							"});",
-							"pm.test(\"Response time is less than 200ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(1500);",
 							"});",
 							""
 						],
@@ -106,7 +94,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/employee/1",
+					"raw": "http://dummy.restapiexample.com/api/v1/employees",
 					"protocol": "http",
 					"host": [
 						"dummy",
@@ -116,8 +104,7 @@
 					"path": [
 						"api",
 						"v1",
-						"employee",
-						"1"
+						"employees"
 					]
 				}
 			},
