@@ -16,9 +16,10 @@ options.add_argument("--disable-dev-shm-usage")
 #options.add_argument("disable-infobars")
 #options.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(options=options)
+
 print ('Browser started successfully. Navigating to the demo page to login.')
 
-# Login with standard_user
+# Login
 def login (user, password):
     'Login with standard_user'
     driver.get('https://www.saucedemo.com/')
@@ -33,18 +34,12 @@ def login (user, password):
     try:
         driver.find_element_by_css_selector("input[value='LOGIN']")
     except NoSuchElementException: 
+        print('Login successfull')
         return True
     print('Login failed')
-    exit()
-
-    page = driver.find_element_by_css_selector("div[class='product_label']").text
-    if page == "Products":
-        print ("we are logged in")
-    else:
-        print("Login failed")
 
 def addCart():
-    print('Adding all items to cart')
+    print('Adding items to cart')
     items = driver.find_elements_by_xpath("//button[@class='btn_primary btn_inventory']")
     for item in items:
         item.click()
