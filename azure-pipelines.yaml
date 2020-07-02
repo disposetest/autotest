@@ -19,17 +19,17 @@ stages:
 
 
        #login to azure account
- #    - script: 'az login --service-principal -u 26b6e71c-5dea-4977-969f-a9837ef76432 -p yg6Z1WGQ08Uqvk8-_Qa1gMXxWTlv-LxZKX --tenant 2cfcb216-ce47-4699-a281-2f1ee48e20f7'
-  #     displayName: login to azure
-   #    workingDirectory:  ./terraform
-    #  #set resources on azure
-     #- script: 'terraform init'
-#       displayName: Initialise Azure Resources
- #      workingDirectory:  ./terraform
-  #    #create azure resources
-   #  - script: 'terraform apply -auto-approve -lock=false'
-    #   displayName: Create Azure Resources
-     #  workingDirectory:  ./terraform
+     - script: 'az login --service-principal -u 26b6e71c-5dea-4977-969f-a9837ef76432 -p yg6Z1WGQ08Uqvk8-_Qa1gMXxWTlv-LxZKX --tenant 2cfcb216-ce47-4699-a281-2f1ee48e20f7'
+       displayName: login to azure
+       workingDirectory:  ./terraform
+      #set resources on azure
+     - script: 'terraform init'
+       displayName: Initialise Azure Resources
+       workingDirectory:  ./terraform
+      #create azure resources
+     - script: 'terraform apply -auto-approve -lock=false'
+       displayName: Create Azure Resources
+       workingDirectory:  ./terraform
 
     
      - task: ArchiveFiles@2
