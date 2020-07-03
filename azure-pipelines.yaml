@@ -55,8 +55,6 @@ stages:
      - script: |
           sudo npm install -g newman
           sudo npm install -g newman-reporter-junitfull
-          echo 'The bun dir is: $(Build.BinariesDirectory)'
-          ls
        displayName: 'Install Newman Runner'
        workingDirectory: $(System.DefaultWorkingDirectory)
 
