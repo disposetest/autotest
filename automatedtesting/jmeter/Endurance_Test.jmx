@@ -39,7 +39,7 @@
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">https://nanolinuxvmproject00-appservice.azurewebsites.net</stringProp>
+          <stringProp name="HTTPSampler.domain">nanolinuxvmproject00-appservice.azurewebsites.net</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -95,12 +95,12 @@
           <collectionProp name="Arguments.arguments">
             <elementProp name="usersE" elementType="Argument">
               <stringProp name="Argument.name">usersE</stringProp>
-              <stringProp name="Argument.value">2</stringProp>
+              <stringProp name="Argument.value">30</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
             <elementProp name="duationE" elementType="Argument">
               <stringProp name="Argument.name">duationE</stringProp>
-              <stringProp name="Argument.value">10</stringProp>
+              <stringProp name="Argument.value">60</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
           </collectionProp>
