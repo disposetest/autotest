@@ -138,13 +138,13 @@
 					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}"
 				},
 				"url": {
-					"raw": "{{url}}/update/{{id}}",
+					"raw": "{{url}}/update/15",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"update",
-						"{{id}}"
+						"15"
 					]
 				}
 			},
@@ -171,11 +171,6 @@
 							"    pm.expect(pm.response.text()).to.include(\"61\");",
 							"});",
 							"",
-							"",
-							"pm.test(\"Response time is less than 3000ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(3500);",
-							"});",
-							"",
 							"pm.test(\"Content-Type is present\", function () {",
 							"    pm.response.to.have.header(\"Content-Type\");",
 							"});",
@@ -191,7 +186,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}",
+					"raw": "{\n    \"name\": \"yoga\",\n    \"salary\": \"320800\",\n    \"age\": \"61\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
