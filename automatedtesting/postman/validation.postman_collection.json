@@ -135,7 +135,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}"
+					"raw": "{\n    \"name\": \"yoga\",\n    \"salary\": \"320800\",\n    \"age\": \"61\"\n}"
 				},
 				"url": {
 					"raw": "{{url}}/update/15",
