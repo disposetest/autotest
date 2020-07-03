@@ -6,6 +6,151 @@
 	},
 	"item": [
 		{
+			"name": "Get all Employees",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "833ebe9a-8c0b-4644-abdc-c351518a4fd7",
+						"exec": [
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Tiger Nixon\");",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Garrett Winters\");",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"1\");",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"employee_salary\");",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 3000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/employees",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93e82a53-d5c0-495a-8c29-9ec7fa3b2727",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches success\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"pm.test(\"Body matches Airi Satou\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Airi Satou\");",
+							"});",
+							"pm.test(\"Body matches 162700\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"162700\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/employee/5",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"employee",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73a8df2e-c12e-4de2-8463-0517993c5d0a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches yoga\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"yoga\");",
+							"});",
+							"",
+							"pm.test(\"Body matches 320800\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"320800\");",
+							"});",
+							"",
+							"pm.test(\"Body matches 61\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"61\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/update/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"update",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Employee",
 			"event": [
 				{
@@ -17,16 +162,25 @@
 							"    pm.expect(pm.response.text()).to.include(\"success\");",
 							"});",
 							"",
+							"pm.test(\"Body matches name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"yoga\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"61\");",
+							"});",
+							"",
+							"",
 							"pm.test(\"Response time is less than 3000ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(3000);",
+							"    pm.expect(pm.response.responseTime).to.be.below(3500);",
 							"});",
 							"",
 							"pm.test(\"Content-Type is present\", function () {",
 							"    pm.response.to.have.header(\"Content-Type\");",
 							"});",
 							"",
-							"var json = pm.response.json();",
-							"pm.environment.set(\"id\", json.data.id);"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -45,16 +199,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/create",
-					"protocol": "http",
+					"raw": "{{url}}/create",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"{{url}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"create"
 					]
 				}
@@ -62,15 +211,27 @@
 			"response": []
 		},
 		{
-			"name": "Get All Employees",
+			"name": "Delete Employee",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "e4ebc3b6-b73b-4178-aa3c-80b1abd80825",
+						"id": "9f98b439-6042-42ba-b8eb-8c12a2031094",
 						"exec": [
-							"pm.test(\"Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches failed\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"failed\");",
+							"});",
+							"",
+							"pm.test(\"Body matches Error\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Error\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Id must be greater than zerp\");",
 							"});",
 							""
 						],
@@ -79,20 +240,16 @@
 				}
 			],
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/employees",
-					"protocol": "http",
+					"raw": "{{url}}/delete/70",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"{{url}}"
 					],
 					"path": [
-						"api",
-						"v1",
-						"employees"
+						"delete",
+						"70"
 					]
 				}
 			},
