@@ -140,7 +140,7 @@ stages:
                  sudo apt-get install -y -f
                  sudo apt-get autoremove -y
                  export PATH=$PATH:'$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
-                 sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver Build.BinariesDirectory    
+                 sudo cp $(System.DefaultWorkingDirectory)/automatedtesting/selenium/chromedriver $(Build.BinariesDirectory)   
 
           #Run Selenium test
            - script: |
