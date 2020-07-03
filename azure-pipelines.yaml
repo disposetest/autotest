@@ -22,6 +22,10 @@ stages:
      - script: 'az login --service-principal -u 26b6e71c-5dea-4977-969f-a9837ef76432 -p yg6Z1WGQ08Uqvk8-_Qa1gMXxWTlv-LxZKX --tenant 2cfcb216-ce47-4699-a281-2f1ee48e20f7'
        displayName: login to azure
        workingDirectory:  ./terraform
+       #Clear resources on azure
+     - script: 'terraform destroy -auto-approve -lock=false'
+       displayName: Clear Azure Resources
+       workingDirectory:  ./terraform
       #set resources on azure
      - script: 'terraform init'
        displayName: Initialise Azure Resources
