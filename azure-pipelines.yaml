@@ -27,10 +27,7 @@ stages:
      - script: 'terraform init'
        displayName: Initialise Azure Resources
        workingDirectory:  ./terraform
-        #Clear resources on azure
-     - script: 'terraform destroy -auto-approve -lock=false'
-       displayName: Clear Azure Resources
-       workingDirectory:  ./terraform
+       
       #create azure resources
      - script: 'terraform apply -auto-approve -lock=false'
        displayName: Create Azure Resources
