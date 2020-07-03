@@ -66,7 +66,7 @@ stages:
 
      - script: 'newman run validation.postman_collection.json -e TestSuitEnv.postman_environment.json --reporters junitfull --reporter-junitfull-export Report-dataV.xml' 
        displayName: 'Run postman validation test'
-       continueOnError: true
+       continueOnError: false
        workingDirectory: ./automatedtesting/postman/
 
      - task: PublishTestResults@2
